@@ -1,0 +1,7 @@
+body {
+	height: 1080px;
+}
+
+nav:nth-last-child() {
+	align-items: flex-end;
+}
