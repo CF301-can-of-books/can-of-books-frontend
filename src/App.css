@@ -5,6 +5,23 @@
 	width : 100%;
   }
 
-nav:nth-last-child() {
-	align-items: flex-end;
+nav {
+	display: flex;
+	justify-content: space-between;
+}
+
+#profileNav {
+	margin-left: 500px;
+}
+
+.navbar {
+	justify-content: space-evenly	;
+}
+/* #logoutButton {
+	
+} */
+
+.navbar:nth-child(2) {
+	margin-top: 350px;
+
 }

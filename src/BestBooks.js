@@ -56,35 +56,6 @@ class BestBooks extends React.Component {
 			</Carousel.Item>
 		)
 	}
-
-	//   zzzrender() {
-	//     return (
-	//       <>
-	//         <h2>My Essential Lifelong Learning &amp; Formation Shelf</h2>
-	//         {this.state.books.length ? (
-	// 			<Carousel>
-	// 				{this.state.books.forEach(book => {
-	// 					return (
-	// 					<Carousel.Item key={book._id} style={{border: 'solid black 2px', margin: '30px'}}>
-	// 						 <img
-	// 							className="d-block w-100"
-	// 							src="../preacher.JPG"
-	// 							alt="First slide"
-	// 						/>
-	// 						<Carousel.Caption>
-	// 							<h3>{book.title}</h3>
-	// 							<p>{book.description}</p>
-	// 						</Carousel.Caption>
-	// 					</Carousel.Item>)
-	// 				}) 
-	// 				};
-	// 			</Carousel>
-	//         ) : (
-	//           <h3>No Books Found :(</h3>
-	//         )}
-	//       </>
-	//     )
-	//   }
 }
 
 export default BestBooks;
