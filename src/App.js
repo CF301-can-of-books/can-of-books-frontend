@@ -38,7 +38,15 @@ class App extends React.Component {
           <Header user={this.state.user} onLogout={this.logoutHandler} />
           <Switch>
             <Route exact path="/">
-				<BestBooks />	
+				
+              	{/* TODO: if the user is logged in, render the `BestBooks` component, if they are not, render the `Login` component */}
+			  	{/* <Login /> */}
+            </Route>
+            <Route exact path="/profile">
+              <div>
+
+              <BestBooks />
+              </div>
               	{/* TODO: if the user is logged in, render the `BestBooks` component, if they are not, render the `Login` component */}
 			  	{/* <Login /> */}
             </Route>
@@ -46,6 +54,7 @@ class App extends React.Component {
           </Switch>
           		{/* <Footer /> */}
         </Router>
+        
       </>
     )
   }

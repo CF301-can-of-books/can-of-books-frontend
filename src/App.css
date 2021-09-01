@@ -1,6 +1,9 @@
-body {
-	height: 1080px;
-}
+.carousel-indicators{
+	position: fixed;
+	padding-top: 500px;
+	min-height : 600px;
+	width : 100%;
+  }
 
 nav:nth-last-child() {
 	align-items: flex-end;
