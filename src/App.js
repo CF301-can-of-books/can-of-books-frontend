@@ -12,6 +12,7 @@ import Login from './Login';
 import Profile from './Profile';
 import UpdateBookButton from './UpdateBookButton';
 import DeleteBookButton from './DeleteBookButton';
+import { withAuth0 } from '@auth0/auth0-react';
 
 
 const server = process.env.REACT_APP_BASE_URL;
@@ -121,4 +122,4 @@ class App extends React.Component {
   }
 }
 
-export default App;
+export default withAuth0(App);
