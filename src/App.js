@@ -3,93 +3,99 @@ import Header from './Header';
 import Footer from './Footer';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {
-  BrowserRouter as Router,
-  Switch,
-  Route
+	BrowserRouter as Router,
+	Switch,
+	Route
 } from "react-router-dom";
 import BestBooks from './BestBooks';
 import './App.css';
 import Login from './Login';
 import Profile from './Profile';
-import AddBook from './AddBook'
+import AddBookForm from './AddBookForm'
 import axios from 'axios';
-import { Button } from 'react-bootstrap';
+import AddBookButton from './AddBookButton';
 
 const server = process.env.REACT_APP_BASE_URL;
 
 class App extends React.Component {
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      user: null,
-      addBook: false,
-    }
-  }
+	constructor(props) {
+		super(props);
+		this.state = {
+			user: null,
+			addBook: false,
+		}
+	}
 
-  loginHandler = (user) => {
-    this.setState({
-      user,
-    })
-  }
+	loginHandler = (user) => {
+		this.setState({
+			user,
+		})
+	}
 
-  logoutHandler = () => {
-    this.setState({
-      user: null,
-    })
-  }
+	logoutHandler = () => {
+		this.setState({
+			user: null,
+		})
+	}
 
-  handleNewBookClick = async (book) => {
-    book.email = this.state.user.email;
-    await axios.post(`${server}/books`, book)
-    this.setState = { addBook: false, };
-  }
+	handleNewBookClick = async (book) => {
+		book.email = this.state.user.email;
+		await axios.post(`${server}/books`, book)
+		this.setState = { addBook: false, };
+	}
 
-  render() {
-    return (
-      <>
-        <Router>
-          <Header user={this.state.user} onLogout={this.logoutHandler} />
-          <Switch>
+	handleModalOpen = () => {
+		this.setState ({ addBook: true });
+	}
 
-            <Route exact path="/">
-              {this.state.user ?
-                <BestBooks />
-                :
-                <Login onLogin={this.loginHandler} />
-              }
-              {this.state.addBook ?
-              <Button onClick={() => { this.setState = { addBook: true } }}>Add A Book</Button>
-                :
-                <></>
-              }
-            </Route>
+	handleModalClose = () => {
+		this.setState ({ addBook: false });		
+	}
 
-            <Route exact path="/profile">
-              <Profile user={this.state.user} />
-            </Route>
+	render() {
+		return (
+			<>
+				<Router>
+					<Header user={this.state.user} onLogout={this.logoutHandler} />
+					<Switch>
 
-            {this.state.addBook ?
-              <Route exact path="/add">
-                <AddBook handleClick={this.handleNewBookClick} />
-              </Route>
-              :
-              <></>
-            }
+						<Route exact path="/">
+							{this.state.user ?
+								<>
+									<BestBooks />
+									<AddBookButton onClick={this.handleModalOpen}>Add A Book</AddBookButton>
+								</>
+								:
+								<Login onLogin={this.loginHandler} />
+							}
+							{this.state.addBook ?
+								<>
+									<AddBookForm handleModalClose={this.handleModalClose} handleClick={this.handleNewBookClick} />
+								</>
+								:
+								<></>
+							}
+						</Route>
 
-          </Switch>
-          <Footer />
-        </Router>
+						<Route exact path="/profile">
+							<Profile user={this.state.user} />
+						</Route>
 
-      </>
-    )
-  }
 
-  testrender() {
-    return (
-      <BestBooks />
-    )
-  }
+					</Switch>
+					<Footer />
+				</Router>
+
+			</>
+		)
+	}
+
+	testrender() {
+		return (
+			<BestBooks />
+		)
+	}
 
 }
 
