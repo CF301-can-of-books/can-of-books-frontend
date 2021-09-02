@@ -10,7 +10,6 @@ class Header extends React.Component {
       <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
         <Navbar.Brand>My Favorite Books</Navbar.Brand>
         <NavItem><Link to="/" className="nav-link">Home</Link></NavItem>
-		<NavItem><Link to="/add" className="nav-link">Add a Book</Link></NavItem>
     <NavItem><Link to="/about" className="nav-link">About</Link></NavItem>
     {this.props.user ? 
     <>

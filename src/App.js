@@ -11,7 +11,11 @@ import BestBooks from './BestBooks';
 import './App.css';
 import Login from './Login';
 import Profile from './Profile';
-import LogoutButton from './LogoutButton'
+import AddBook from './AddBook'
+import axios from 'axios';
+import { Button } from 'react-bootstrap';
+
+const server = process.env.REACT_APP_BASE_URL;
 
 class App extends React.Component {
 
@@ -19,6 +23,7 @@ class App extends React.Component {
     super(props);
     this.state = {
       user: null,
+      addBook: false,
     }
   }
 
@@ -34,25 +39,44 @@ class App extends React.Component {
     })
   }
 
+  handleNewBookClick = async (book) => {
+    book.email = this.state.user.email;
+    await axios.post(`${server}/books`, book)
+    this.setState = { addBook: false, };
+  }
+
   render() {
     return (
       <>
         <Router>
           <Header user={this.state.user} onLogout={this.logoutHandler} />
           <Switch>
+
             <Route exact path="/">
-                {this.state.user ? 
+              {this.state.user ?
                 <BestBooks />
                 :
-                <Login onLogin={this.loginHandler}/>
-                }
+                <Login onLogin={this.loginHandler} />
+              }
+              {this.state.addBook ?
+              <Button onClick={() => { this.setState = { addBook: true } }}>Add A Book</Button>
+                :
+                <></>
+              }
             </Route>
+
             <Route exact path="/profile">
-                <Profile user={this.state.user}/>
-              {/* TODO: if the user is logged in, render the `BestBooks` component, if they are not, render the `Login` component */}
-              {/* <Login /> */}
+              <Profile user={this.state.user} />
             </Route>
-            {/* TODO: add a route with a path of '/profile' that renders a `Profile` component */}
+
+            {this.state.addBook ?
+              <Route exact path="/add">
+                <AddBook handleClick={this.handleNewBookClick} />
+              </Route>
+              :
+              <></>
+            }
+
           </Switch>
           <Footer />
         </Router>
