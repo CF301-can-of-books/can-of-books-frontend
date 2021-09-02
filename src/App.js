@@ -21,6 +21,7 @@ class App extends React.Component {
 
     this.state = {
       user: null,
+      books: [],
       addBook: false,
       newBook: null,
     };
@@ -47,16 +48,14 @@ class App extends React.Component {
     // get new book from server
     try {
       const response = await axios.post(`${server}/books`, book);
-      const newBook = response.body;
-      console.log(newBook);
-
-      // set state to hide the add book button
+      const newBook = response.data;
       this.setState({
         addBook: false,
-        newBook: newBook
+        newBook: newBook,
+        books: [...this.state.books, this.state.newBook],
       });
     } catch (error) {
-      console.log(error);
+      alert(`You've encountered an error and couldn't add your book. ${error}`)
     }
   };
 
