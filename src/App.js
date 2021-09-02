@@ -10,6 +10,8 @@ import Footer from './Footer';
 import Header from './Header';
 import Login from './Login';
 import Profile from './Profile';
+import UpdateBookButton from './UpdateBookButton';
+import DeleteBookButton from './DeleteBookButton';
 
 
 const server = process.env.REACT_APP_BASE_URL;
@@ -84,6 +86,10 @@ class App extends React.Component {
                              user={this.state.user.email}
                              addedBook={this.state.newBook}/>
                   <AddBookButton onClick={this.handleModalOpen}>Add A Book</AddBookButton>
+                  <UpdateBookButton />
+                  <DeleteBookButton />
+                  {/* <UpdateBookButton>Update A Book</UpdateBookButton>
+                  <DeleteBookButton>Delete A Book</DeleteBookButton> */}
                 </>
                 :
                 <Login onLogin={this.loginHandler}/>
