@@ -11,7 +11,7 @@ import BestBooks from './BestBooks';
 import './App.css';
 import Login from './Login';
 import Profile from './Profile';
-import AddBookForm from './AddBookForm'
+import BookFormModal from './BookFormModal'
 import axios from 'axios';
 import AddBookButton from './AddBookButton';
 
@@ -42,7 +42,7 @@ class App extends React.Component {
 	handleNewBookClick = async (book) => {
 		book.email = this.state.user.email;
 		await axios.post(`${server}/books`, book)
-		this.setState = { addBook: false, };
+		this.setState ({ addBook: false });
 	}
 
 	handleModalOpen = () => {
@@ -71,7 +71,11 @@ class App extends React.Component {
 							}
 							{this.state.addBook ?
 								<>
-									<AddBookForm handleModalClose={this.handleModalClose} handleClick={this.handleNewBookClick} />
+									<BookFormModal 
+										handleModalClose={this.handleModalClose} 
+										handleClick={this.handleNewBookClick} 
+										show={this.state.addBook}
+									/>
 								</>
 								:
 								<></>
@@ -96,7 +100,6 @@ class App extends React.Component {
 			<BestBooks />
 		)
 	}
-
 }
 
 export default App;

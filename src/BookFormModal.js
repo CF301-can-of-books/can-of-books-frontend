@@ -1,7 +1,7 @@
 import { Component } from "react";
 import { Form, Button, Modal } from "react-bootstrap";
 
-export default class AddBookForm extends Component {
+export default class BookFormModal extends Component {
 
 	makeBook = (event) => {
 		event.preventDefault();
@@ -20,7 +20,7 @@ export default class AddBookForm extends Component {
 
 	render() {
 		return (
-			<Modal.Dialog>
+			<Modal show={this.props.show} onHide={this.closeModal}>
 				<Modal.Header closeButton onClick={this.closeModal}>
 					<Modal.Title>Add a Book</Modal.Title>
 				</Modal.Header>
@@ -51,38 +51,7 @@ export default class AddBookForm extends Component {
 				</Modal.Body>
 				<Modal.Footer>
 				</Modal.Footer>
-			</Modal.Dialog>
-		)
-	}
-
-	__render() {
-		return (
-			<>
-				<Form onSubmit={this.makeBook}>
-					<Form.Group className="mb-3" controlId="bookTitle">
-						<Form.Control type="title" placeholder="Book Title" />
-						<Form.Text className="text-muted">
-							&nbsp;
-						</Form.Text>
-					</Form.Group>
-					<Form.Group className="mb-3" controlId="bookDescription">
-						<Form.Control type="description" placeholder="Book Description" />
-						<Form.Text className="text-muted">
-							&nbsp;
-							&nbsp;
-						</Form.Text>
-					</Form.Group>
-					<Form.Group className="mb-3" controlId="bookRead">
-						<Form.Check>
-							<Form.Check.Input variant="primary" type='checkbox' isValid />
-							<Form.Check.Label style={{ color: 'black' }}>{'Have you read the book?'}</Form.Check.Label>
-						</Form.Check>
-					</Form.Group>
-					<Button variant="primary" type="submit">
-						Add My Book!
-					</Button>
-				</Form>
-			</>
+			</Modal>
 		)
 	}
 }
