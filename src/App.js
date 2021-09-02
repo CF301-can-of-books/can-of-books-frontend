@@ -41,9 +41,24 @@ class App extends React.Component {
 
 	handleNewBookClick = async (book) => {
 		book.email = this.state.user.email;
-		await axios.post(`${server}/books`, book)
-		this.setState ({ addBook: false });
+	 const response = await axios.post(`${server}/books`, book)
+   const newBook = response.body;
+   console.log(newBook);
+		this.setState ({ 
+      addBook: false,
+     });
+     this.getUserBooks(newBook);
 	}
+
+  // getUserBooks = (books) => {
+  //     this.setState({
+  //       books: [...this.state.books, ...books],
+  //     })
+  //   } else {
+  //     this.setState({
+  //       books: [...this.state.books, books],
+  //     })
+  // }
 
 	handleModalOpen = () => {
 		this.setState ({ addBook: true });
@@ -63,7 +78,7 @@ class App extends React.Component {
 						<Route exact path="/">
 							{this.state.user ?
 								<>
-									<BestBooks />
+									<BestBooks books={this.state.books} getBooks={this.getUserBooks} user={this.state.user.email}/>
 									<AddBookButton onClick={this.handleModalOpen}>Add A Book</AddBookButton>
 								</>
 								:

@@ -10,29 +10,26 @@ class BestBooks extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			books: []
+			user: this.props.user,
 		}
+		console.log(this.props.books);
 	}
 
-	// ---what do we want BestBooks to do?
-	// only handles displaying the books 
 
 	/* TODO: Make a GET request to your API to fetch books for the logged in user  */
 	async componentDidMount() {
-		const response = await axios.get(`${server}/books?email=bill@microsoft.com`);
-		const newBook = response.data;
-		const books = newBook;
-		console.log(newBook);
-		this.setState({ books });
+		const response = await axios.get(`${server}/books?email=${this.state.user}`);
+		const books = response.data;
+		this.props.getBooks(books);
 	}
 
 	render() {
 		return (
 			<>
 				<h2>My Essential Lifelong Learning &amp; Formation Shelf</h2>
-				{this.state.books.length ? (	
+				{this.props.books.length ? (	
 					<Carousel className="w-50" style={{margin: 'auto', marginTop: "50px"}}>
-						{this.state.books.map(book => this.carouselItem(book))}
+						{this.props.books.map(book => this.carouselItem(book))}
 					</Carousel>
 				) : (
 					<h3>No Books Found</h3>
