@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React from 'react';
 import Carousel from 'react-bootstrap/Carousel';
+import DeleteBookButton from './DeleteBookButton';
 
 
 const server = process.env.REACT_APP_BASE_URL;
@@ -81,6 +82,7 @@ class BestBooks extends React.Component {
         <Carousel.Caption>
           <h3>{book.title}</h3>
           <p>{book.description}</p>
+        <DeleteBookButton user={this.state.user} bookId={book._id}>Delete A Book</DeleteBookButton>
         </Carousel.Caption>
       </Carousel.Item>
     );
