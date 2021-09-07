@@ -11,7 +11,6 @@ import Header from './Header';
 import Login from './Login';
 import Profile from './Profile';
 import UpdateBookButton from './UpdateBookButton';
-import DeleteBookButton from './DeleteBookButton';
 import { withAuth0 } from '@auth0/auth0-react';
 
 
@@ -82,15 +81,14 @@ class App extends React.Component {
             <Route exact path="/">
               {this.state.user ?
                 <>
-                  <BestBooks books={this.state.books}
-                             getBooks={this.getUserBooks}
-                             user={this.state.user.email}
-                             addedBook={this.state.newBook}/>
+                  <BestBooks 
+                    books={this.state.books}
+                    getBooks={this.getUserBooks}
+                    user={this.state.user.email}
+                    addedBook={this.state.newBook}
+                  />
                   <AddBookButton onClick={this.handleModalOpen}>Add A Book</AddBookButton>
                   <UpdateBookButton />
-                  <DeleteBookButton />
-                  {/* <UpdateBookButton>Update A Book</UpdateBookButton>
-                  <DeleteBookButton>Delete A Book</DeleteBookButton> */}
                 </>
                 :
                 <Login onLogin={this.loginHandler}/>
