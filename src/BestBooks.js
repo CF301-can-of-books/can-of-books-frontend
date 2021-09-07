@@ -6,11 +6,9 @@ import DeleteBookButton from './DeleteBookButton';
 
 const server = process.env.REACT_APP_BASE_URL;
 
+
 class BestBooks extends React.Component {
-  /**
-   * This happens first
-   * @param props
-   */
+  
   constructor(props) {
     super(props);
 
@@ -20,13 +18,7 @@ class BestBooks extends React.Component {
     };
   }
 
-
-  /**
-   * This happens third
-   * @returns {Promise<void>}
-   */
   async componentDidMount() {
-    /* TODO: Make a GET request to your API to fetch books for the logged in user  */
 
     try {
       const response = await axios.get(`${server}/books?email=${this.state.user}`);
@@ -48,10 +40,19 @@ class BestBooks extends React.Component {
     }
   }
 
-  /**
-   * This happens second
-   * @returns {JSX.Element}
-   */
+  deleteBook = async (bookToDelete) => {
+    const url = `${server}/books/${bookToDelete._id}`;
+
+    try {
+      const response = await axios.delete(url);
+      console.log(response.data);
+      const filteredBooks = this.state.books.filter(book => book._id !== bookToDelete._id);
+      this.setState({ books: filteredBooks });
+    } catch (error) {
+      console.error(error);
+    }
+  }  
+
   render() {
     return (
       <>
@@ -82,7 +83,7 @@ class BestBooks extends React.Component {
         <Carousel.Caption>
           <h3>{book.title}</h3>
           <p>{book.description}</p>
-        <DeleteBookButton user={this.state.user} bookId={book._id}>Delete A Book</DeleteBookButton>
+          <DeleteBookButton info={book} onDelete={this.deleteBook}/>
         </Carousel.Caption>
       </Carousel.Item>
     );
